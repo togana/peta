@@ -2,5 +2,9 @@
   "app": {
     "title": "peta",
     "welcome": "/dashboard"
+  },
+  "api": {
+    "end_point": "/api/v1",
+    "test_message": "Successfully Posted a test message."
   }
 }
