@@ -2,7 +2,8 @@
   "name": "peta",
   "version": "0.0.0",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "gulp:eslint": "gulp eslint"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -14,5 +15,14 @@
     "serve-favicon": "~2.3.0"
   },
   "author": "togana",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^2.11.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.2.2",
+    "eslint-plugin-react": "^5.1.1",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^2.0.0"
+  }
 }
