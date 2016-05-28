@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://mongo/peta');
+const config = require('config');
+mongoose.connect(config.mongo.connection);
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
