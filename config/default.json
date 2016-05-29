@@ -19,6 +19,12 @@
   "api": {
     "end_point": "/api/v1",
     "success": "Success!",
-    "test_message": "Successfully Posted a test message."
+    "failed": "Failed!",
+    "test_message": "Successfully Posted a test message.",
+    "auth": {
+      "success": "Authentication successfully finished.",
+      "failed": "Authentication failed. User not found or wrong password.",
+      "expires_in": "24h"
+    }
   }
 }
