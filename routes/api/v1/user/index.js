@@ -4,12 +4,16 @@ const router = new express.Router();
 const User = require('./../../../../models/user');
 
 // Create
+// router.get('/create', (req, res) => {
+  // const name = 'test_user';
+  // const password = 'password';
+  // const admin = true;
 router.post('/', (req, res) => {
-  const { id, name, age } = req.body;
+  const { name, password, admin } = req.body;
   const params = {
-    id,
     name,
-    age,
+    password,
+    admin,
   };
 
   const user = new User(params);

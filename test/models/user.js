@@ -4,7 +4,8 @@ const User = require('./../../models/user');
 
 const params = {
   name: config.models.user.name,
-  age: config.models.user.age,
+  password: config.models.user.password,
+  admin: config.models.user.admin,
 };
 
 describe('User Model()', () => {
