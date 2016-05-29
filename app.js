@@ -5,6 +5,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const config = require('config');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 mongoose.connect(config.mongo.connection);
 
@@ -27,6 +29,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+const sessionConfig = config.session.config;
+sessionConfig.store = new MongoStore({
+  mongooseConnection: mongoose.connection,
+});
+app.use(session(sessionConfig));
 
 app.use('/', routes);
 app.use('/users', users);

@@ -6,6 +6,16 @@
   "mongo": {
     "connection": "mongodb://mongo/peta"
   },
+  "session": {
+    "config": {
+      "secret": "secret key",
+      "cookie": {
+        "maxAge": 3600000
+      },
+      "resave": true,
+      "saveUninitialized": true
+    }
+  },
   "api": {
     "end_point": "/api/v1",
     "success": "Success!",
