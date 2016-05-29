@@ -1,5 +1,11 @@
 {
   "mongo": {
     "connection": "mongodb://mongo/peta_test"
+  },
+  "models": {
+    "user": {
+      "name": "test_user",
+      "age": 10
+    }
   }
 }
