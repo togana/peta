@@ -2,5 +2,13 @@
   "app": {
     "title": "peta",
     "welcome": "/dashboard"
+  },
+  "mongo": {
+    "connection": "mongodb://mongo/peta"
+  },
+  "api": {
+    "end_point": "/api/v1",
+    "success": "Success!",
+    "test_message": "Successfully Posted a test message."
   }
 }
