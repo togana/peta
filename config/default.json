@@ -24,6 +24,7 @@
     "auth": {
       "success": "Authentication successfully finished.",
       "failed": "Authentication failed. User not found or wrong password.",
+      "invalid_token": "Invalid Token or 'null' was found. Please request parameter 'token' or header 'X-ACCESS-TOKEN'.",
       "expires_in": "24h"
     }
   }
