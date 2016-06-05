@@ -10,11 +10,14 @@ const MongoStore = require('connect-mongo')(session);
 const mongoose = require('mongoose');
 mongoose.connect(config.mongo.connection);
 
+const authz = require('./lib/authz');
+
 const routes = require('./routes/index');
 const users = require('./routes/users');
 
 const api = require(`./routes${config.api.end_point}/index`);
-const user = require(`./routes${config.api.end_point}/user`);
+const queryingUsers = require(`./routes${config.api.end_point}/user/queryingUsers`);
+const signUp = require(`./routes${config.api.end_point}/user/signUp`);
 const auth = require(`./routes${config.api.end_point}/auth`);
 
 const app = express();
@@ -40,9 +43,14 @@ app.use(session(sessionConfig));
 app.use('/', routes);
 app.use('/users', users);
 
+// Public API
 app.use(`${config.api.end_point}`, api);
-app.use(`${config.api.end_point}/user`, user);
 app.use(`${config.api.end_point}/auth`, auth);
+app.use(`${config.api.end_point}/user`, signUp);
+
+// Authorization Required
+app.use(authz.required());
+app.use(`${config.api.end_point}/user`, queryingUsers);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
