@@ -6,9 +6,26 @@
   "mongo": {
     "connection": "mongodb://mongo/peta"
   },
+  "session": {
+    "config": {
+      "secret": "secret key",
+      "cookie": {
+        "maxAge": 3600000
+      },
+      "resave": true,
+      "saveUninitialized": true
+    }
+  },
   "api": {
     "end_point": "/api/v1",
     "success": "Success!",
-    "test_message": "Successfully Posted a test message."
+    "failed": "Failed!",
+    "test_message": "Successfully Posted a test message.",
+    "auth": {
+      "success": "Authentication successfully finished.",
+      "failed": "Authentication failed. User not found or wrong password.",
+      "invalid_token": "Invalid Token or 'null' was found. Please request parameter 'token' or header 'X-ACCESS-TOKEN'.",
+      "expires_in": "24h"
+    }
   }
 }

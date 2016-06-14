@@ -5,11 +5,11 @@ const User = require('./../../../../models/user');
 
 // Create
 router.post('/', (req, res) => {
-  const { id, name, age } = req.body;
+  const { name, password, admin } = req.body;
   const params = {
-    id,
     name,
-    age,
+    password,
+    admin,
   };
 
   const user = new User(params);
@@ -18,14 +18,5 @@ router.post('/', (req, res) => {
     res.json({ message: config.api.success });
   });
 });
-
-// Read
-router.get('/', (req, res) =>
-  User.find((err, users) => {
-    if (err) res.send(err);
-    res.json(users);
-    return this;
-  })
-);
 
 module.exports = router;
