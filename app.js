@@ -12,9 +12,6 @@ mongoose.connect(config.mongo.connection);
 
 const authz = require('./lib/authz');
 
-const routes = require('./routes/index');
-const users = require('./routes/users');
-
 const api = require(`./routes${config.api.end_point}/index`);
 const queryingUsers = require(`./routes${config.api.end_point}/user/queryingUsers`);
 const signUp = require(`./routes${config.api.end_point}/user/signUp`);
@@ -23,8 +20,8 @@ const auth = require(`./routes${config.api.end_point}/auth`);
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -40,17 +37,13 @@ sessionConfig.store = new MongoStore({
 });
 app.use(session(sessionConfig));
 
-app.use('/', routes);
-app.use('/users', users);
-
 // Public API
 app.use(`${config.api.end_point}`, api);
 app.use(`${config.api.end_point}/auth`, auth);
 app.use(`${config.api.end_point}/user`, signUp);
 
 // Authorization Required
-app.use(authz.required());
-app.use(`${config.api.end_point}/user`, queryingUsers);
+app.use(`${config.api.end_point}/user`, authz.required(), queryingUsers);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

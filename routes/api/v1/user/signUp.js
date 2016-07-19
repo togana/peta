@@ -1,14 +1,16 @@
 const express = require('express');
 const config = require('config');
 const router = new express.Router();
+const passwordHash = require('./../../../../lib/passwordHash');
 const User = require('./../../../../models/user');
 
 // Create
 router.post('/', (req, res) => {
   const { name, password, admin } = req.body;
+  const hashpassword = passwordHash.generate(password);
   const params = {
     name,
-    password,
+    password: hashpassword,
     admin,
   };
 
