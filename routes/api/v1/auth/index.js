@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('config');
 const router = new express.Router();
 const jwt = require('jsonwebtoken');
+const passwordHash = require('./../../../../lib/passwordHash');
 const User = require('./../../../../models/user');
 
 router.post('/token', (req, res) => {
@@ -10,7 +11,7 @@ router.post('/token', (req, res) => {
   }, (err, user) => {
     if (err) throw err;
 
-    if (!user || user.password !== req.body.password) {
+    if (!user || !passwordHash.verify(req.body.password, user.password)) {
       res.json({
         success: false,
         message: config.api.auth.failed,
