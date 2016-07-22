@@ -28,5 +28,16 @@ describe('passwordHash', () => {
         should(err.message).equal('Invalid password');
       });
     });
+
+    it('should throw an error if an invalid message digest algorithm is specified', () => {
+      let err;
+      try {
+        passwordHash.generate('password123', { algorithm: 'foo' });
+      } catch (e) {
+        err = e;
+      }
+      should(err).be.instanceof(Error);
+      should(err.message).equal('Invalid message digest algorithm');
+    });
   });
 });
