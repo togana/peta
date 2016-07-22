@@ -39,5 +39,31 @@ describe('passwordHash', () => {
       should(err).be.instanceof(Error);
       should(err.message).equal('Invalid message digest algorithm');
     });
+
+    it('should throw an error if the salt length is invalid', () => {
+      const invalid = [
+        'abc',
+        0,
+        -1,
+        2.3,
+        null,
+        true,
+        false,
+        new Date(),
+        [],
+        {},
+        function empty() {},
+      ];
+      invalid.forEach((value) => {
+        let err;
+        try {
+          passwordHash.generate('password123', { saltLength: value });
+        } catch (e) {
+          err = e;
+        }
+        should(err).be.instanceof(Error);
+        should(err.message).equal('Invalid salt length');
+      });
+    });
   });
 });
