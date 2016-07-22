@@ -89,5 +89,15 @@ describe('passwordHash', () => {
         should(parts[0]).equal(value);
       });
     });
+
+    it('should store the salt length in the hashed password', () => {
+      const password = 'password123';
+      const len = 20;
+      const hash = passwordHash.generate(password, { algorithm: 'md5', saltLength: len });
+      should(passwordHash.verify(password, hash)).be.true();
+      const parts = hash.split('$');
+      should(parts.length).equal(3);
+      should(parts[1].length).equal(len);
+    });
   });
 });
