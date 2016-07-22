@@ -100,4 +100,12 @@ describe('passwordHash', () => {
       should(parts[1].length).equal(len);
     });
   });
+
+  describe('.verify(password, hashedPassword)', () => {
+    it('should return true if the password matches the hash', () => {
+      const password = 'password123';
+      const hash = passwordHash.generate(password);
+      should(passwordHash.verify(password, hash)).be.true();
+    });
+  });
 });
