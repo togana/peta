@@ -107,5 +107,10 @@ describe('passwordHash', () => {
       const hash = passwordHash.generate(password);
       should(passwordHash.verify(password, hash)).be.true();
     });
+
+    it('should return false if the password does not match the hash', () => {
+      const password = 'password123';
+      should(passwordHash.verify(password, password)).be.false();
+    });
   });
 });
