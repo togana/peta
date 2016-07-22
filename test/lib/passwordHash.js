@@ -74,5 +74,20 @@ describe('passwordHash', () => {
       should(passwordHash.verify(password, hash1)).be.true();
       should(passwordHash.verify(password, hash2)).be.true();
     });
+
+    it('should store the algorithm in the hashed password', () => {
+      const password = 'password123';
+      const invalid = [
+        'md5',
+        'sha256',
+        'sha512',
+      ];
+      invalid.forEach((value) => {
+        const hash = passwordHash.generate(password, { algorithm: value });
+        should(passwordHash.verify(password, hash)).be.true();
+        const parts = hash.split('$');
+        should(parts[0]).equal(value);
+      });
+    });
   });
 });
