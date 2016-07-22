@@ -65,5 +65,14 @@ describe('passwordHash', () => {
         should(err.message).equal('Invalid salt length');
       });
     });
+
+    it('should generate unique hashed passwords', () => {
+      const password = 'password123';
+      const hash1 = passwordHash.generate(password);
+      const hash2 = passwordHash.generate(password);
+      should(hash1).not.equal(hash2);
+      should(passwordHash.verify(password, hash1)).be.true();
+      should(passwordHash.verify(password, hash2)).be.true();
+    });
   });
 });
