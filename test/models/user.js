@@ -1,30 +1,22 @@
 const should = require('should');
 const config = require('config');
 const User = require('./../../models/user');
+const passwordHash = require('./../../lib/passwordHash');
 
 const params = {
   name: config.models.user.name,
-  password: config.models.user.password,
+  password: passwordHash.generate(config.models.user.password),
   admin: config.models.user.admin,
 };
 
 describe('User Model()', () => {
-  User.remove({ age: config.models.user.age }, (err) => err);
-
-  it('respond with matching 0 record', (done) => {
-    User.find((err, users) => {
+  it('should create a new User', () => {
+    const user = new User(params);
+    user.save((err, createdUser) => {
       should.not.exist(err);
-      should(users.length).equal(0);
-      return done();
-    });
-  });
-
-  it('respond with matching 1 record', (done) => {
-    User.create(params);
-    User.find((err, users) => {
-      should.not.exist(err);
-      should(users.length).equal(1);
-      return done();
+      should(createdUser.name).equal(config.models.user.name);
+      should(passwordHash.verify(config.models.user.password, createdUser.password)).be.true();
+      should(createdUser.admin).equal(config.models.user.name);
     });
   });
 });
